@@ -1,0 +1,89 @@
+<!doctype html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta name="description" content="CS2 Guess — квиз по действующим профессиональным игрокам Counter-Strike 2."><title>CS2 Guess — угадай про-игрока</title><style>
+:root{--bg:#070b12;--panel:#111826;--line:#27334a;--text:#f4f7fb;--muted:#97a3b6;--blue:#67b9ff;--green:#2edb88;--red:#ff5270}*{box-sizing:border-box}body{min-height:100vh;margin:0;background:radial-gradient(circle at 15% 4%,#122b4c 0,transparent 27rem),radial-gradient(circle at 90% 100%,#18233a 0,transparent 28rem),var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}main{width:min(720px,calc(100% - 32px));margin:auto;padding:38px 0 54px}.brand{color:var(--blue);font-size:13px;font-weight:800;letter-spacing:.15em;text-transform:uppercase}h1{margin:10px 0 8px;font-size:clamp(32px,7vw,54px);letter-spacing:-.06em}.lead{margin:0;color:var(--muted);line-height:1.5}.screen{margin-top:28px;padding:clamp(22px,5vw,38px);border:1px solid var(--line);border-radius:22px;background:rgba(17,24,38,.94);box-shadow:0 25px 60px #0005}.difficulty-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:24px}button{border:0;border-radius:12px;cursor:pointer;color:var(--text);background:#263550;padding:15px 19px;font:inherit;font-weight:800;transition:transform .15s,filter .15s}button:hover{transform:translateY(-2px);filter:brightness(1.12)}.difficulty{min-height:150px;text-align:left;border:1px solid #32435e}.difficulty strong{display:block;margin-bottom:8px;color:var(--blue);font-size:19px}.difficulty span{color:var(--muted);font-size:14px;line-height:1.4}.topline{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:14px;font-weight:bold}.photo-wrap{display:grid;place-items:center;min-height:300px;margin:19px 0 22px;overflow:hidden;border:1px solid #2d3a50;border-radius:16px;background:linear-gradient(140deg,#1d2d46,#0d131f)}#photo{width:100%;height:340px;object-fit:cover;object-position:top}.photo-fallback{display:none;place-items:center;width:100%;height:340px;color:#8ca0bf;font-size:66px;font-weight:900}form{display:grid;gap:12px}label{color:var(--muted);font-size:13px;font-weight:bold}input{width:100%;padding:15px;outline:none;border:1px solid #3a4962;border-radius:11px;color:var(--text);background:#0b111d;font:inherit}input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #67b9ff22}.primary{background:var(--blue);color:#07101e}.feedback{min-height:24px;margin:15px 0 0;font-weight:800;text-align:center}.correct{color:var(--green)}.wrong{color:var(--red)}.hidden{display:none!important}.answer{margin-top:14px;padding:15px;border-radius:12px;color:#ffd9df;background:#3b1823;line-height:1.5}.restart{width:100%;margin-top:17px;background:#31415f}footer{margin-top:17px;text-align:center;color:#708097;font-size:12px;line-height:1.5}@media(max-width:520px){main{width:min(100% - 22px,720px);padding-top:24px}.difficulty-grid{grid-template-columns:1fr}#photo,.photo-fallback{height:280px}}
+</style></head><body><main><div class="brand">CS2 Guess</div><h1>Угадай про-игрока</h1><p class="lead">Сможешь узнать CS2-про игрока по фотографии? Ошибёшься — серия начнётся заново.</p>
+<section class="screen" id="start-screen"><h2>Выбери сложность</h2><div class="difficulty-grid"><button class="difficulty" data-level="easy"><strong>Лёгкая</strong><span>Известные игроки. Введи только игровой никнейм.</span></button><button class="difficulty" data-level="hard"><strong>Сложная</strong><span>Игроки для этого режима появятся позже.</span></button></div></section>
+<section class="screen hidden" id="game-screen"><div class="topline"><span id="level-label"></span><span>Серия: <b id="score">0</b></span></div><div class="photo-wrap"><img id="photo" alt="Фотография CS2-про игрока"><div class="photo-fallback" id="fallback"></div></div><form id="answer-form"><div><label for="nick">Игровой никнейм</label><input id="nick" autocomplete="off" required placeholder="Например: donk"></div><div id="real-name-block" class="hidden"><label for="real-name">Настоящее имя</label><input id="real-name" autocomplete="off" placeholder="Например: Danil Kryshkovets"></div><button class="primary" type="submit">Проверить ответ</button></form><p class="feedback" id="feedback" aria-live="polite"></p><div class="answer hidden" id="answer"></div><button class="restart hidden" id="restart">Начать заново</button></section><footer>Фотографии игроков добавлены в этот сайт.</footer></main>
+<script>
+const easyPlayers=[
+ ['ropz','Robin Kool','assets/ropz-cutout.png'],
+ ['device','Nicolai Reedtz','assets/device-cutout.png'],
+ ['s1mple','Oleksandr Kostyliev','assets/s1mple-cutout.png'],
+ ['donk','Danil Kryshkovets','assets/donk-cutout.png'],
+ ['Zeus','Danylo Teslenko','assets/zeus-cutout.png'],
+ ['kyousuke','Maxim Lukin','assets/kyousuke-cutout.png'],
+ ['m0NESY','Ilya Osipov','assets/m0nesy-cutout.png'],
+ ['electroNic','Denis Sharipov','assets/electronic-cutout.png'],
+ ['NiKo','Nikola Kovač','assets/niko-cutout.png'],
+ ['karrigan','Finn Andersen','assets/karrigan-cutout.png']
+];
+const hardPlayers=[
+ ['makazze','Natus Vincere','assets/makazze-cutout.png',['NAVI','NaVi']],
+ ['chopper','Spirit','assets/chopper-cutout.png',['Team Spirit']],
+ ['zont1x','Spirit','assets/zont1x-cutout.png',['Team Spirit']],
+ ['Spinx','MOUZ','assets/spinx-cutout.png',['Mouz']],
+ ['apEX','Vitality','assets/apex-cutout.png',['Team Vitality']],
+ ['magixx','Spirit','assets/magixx-cutout.png',['Team Spirit']],
+ ['Magisk','BC.Game','assets/magisk-cutout.png',['BC Game','BCGame']],
+ ['AleksiB','Natus Vincere','assets/aleksib-cutout.png',['NAVI','NaVi']],
+ ['kyxsan','Aurora','assets/kyxsan-cutout.png',['Aurora Gaming']],
+ ['FL4MUS','GamerLegion','assets/fl4mus-cutout.png',['GL']]
+];
+let level,score,deck,player;const $=s=>document.querySelector(s);const normalize=v=>v.trim().toLocaleLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\p{L}\p{N}]/gu,'');const shuffle=a=>[...a].sort(()=>Math.random()-.5);
+function nextPlayer(){const players=level==='easy'?easyPlayers:hardPlayers;if(!players.length){$('#photo').classList.add('hidden');$('#fallback').style.display='grid';$('#fallback').textContent='?';$('#answer-form').classList.add('hidden');$('#feedback').className='feedback';$('#feedback').textContent='Игроки для этого режима ещё не добавлены.';return}if(!deck.length)deck=shuffle(players);player=deck.pop();$('#photo').src=player[2];$('#photo').classList.remove('hidden');$('#fallback').style.display='none';$('#fallback').textContent=player[0].slice(0,2).toUpperCase();$('#nick').value='';$('#real-name').value='';$('#feedback').textContent='';$('#answer').classList.add('hidden');$('#restart').classList.add('hidden');$('#answer-form').classList.remove('hidden');$('#nick').focus()}
+function startGame(chosen){level=chosen;score=0;deck=shuffle(level==='easy'?easyPlayers:hardPlayers);$('#score').textContent=score;$('#level-label').textContent=level==='easy'?'Лёгкая сложность':'Сложная сложность';$('#real-name-block').classList.toggle('hidden',level!=='hard');$('#start-screen').classList.add('hidden');$('#game-screen').classList.remove('hidden');nextPlayer()}
+document.querySelectorAll('[data-level]').forEach(b=>b.addEventListener('click',()=>startGame(b.dataset.level)));$('#photo').addEventListener('error',()=>{$('#photo').classList.add('hidden');$('#fallback').style.display='grid'});$('#answer-form').addEventListener('submit',e=>{e.preventDefault();const nick=normalize($('#nick').value)===normalize(player[0]);const name=level==='easy'||normalize($('#real-name').value)===normalize(player[1]);if(nick&&name){score++;$('#score').textContent=score;$('#feedback').className='feedback correct';$('#feedback').textContent='Верно! Следующий игрок…';setTimeout(nextPlayer,850)}else{$('#feedback').className='feedback wrong';$('#feedback').textContent='Неверно — серия закончилась.';$('#answer').innerHTML=`Правильный ответ: <b>${player[0]}</b>${level==='hard'?` — ${player[1]}`:''}.`;$('#answer').classList.remove('hidden');$('#answer-form').classList.add('hidden');$('#restart').classList.remove('hidden')}});$('#restart').addEventListener('click',()=>startGame(level));
+</script><script>
+document.querySelector('#nick').placeholder='Введи никнейм игрока';
+const MAX_STREAK=10;
+nextPlayer=function(){
+  const players=level==='easy'?easyPlayers:hardPlayers;
+  if(!players.length){$('#photo').classList.add('hidden');$('#fallback').style.display='grid';$('#fallback').textContent='?';$('#answer-form').classList.add('hidden');$('#feedback').className='feedback';$('#feedback').textContent='Игроки для этого режима ещё не добавлены.';return}
+  if(!deck.length||score>=MAX_STREAK){$('#photo').classList.add('hidden');$('#fallback').style.display='grid';$('#fallback').textContent='✓';$('#answer-form').classList.add('hidden');$('#feedback').className='feedback correct';$('#feedback').textContent=`Серия завершена: ${score} из ${Math.min(MAX_STREAK,players.length)} без повторов.`;$('#restart').classList.remove('hidden');return}
+  player=deck.pop();$('#photo').src=player[2];$('#photo').classList.remove('hidden');$('#fallback').style.display='none';$('#nick').value='';$('#real-name').value='';$('#feedback').textContent='';$('#answer').classList.add('hidden');$('#restart').classList.add('hidden');$('#answer-form').classList.remove('hidden');$('#nick').focus();
+};
+</script><script>
+const teamLabel=document.querySelector('label[for="real-name"]');
+teamLabel.textContent='Команда игрока';
+document.querySelector('#real-name').placeholder='Например: Team Spirit';
+document.querySelector('.difficulty[data-level="hard"] span').textContent='Введи никнейм и команду игрока.';
+const oldForm=document.querySelector('#answer-form');
+const quizForm=oldForm.cloneNode(true);
+oldForm.replaceWith(quizForm);
+quizForm.addEventListener('submit',event=>{
+  event.preventDefault();
+  const correctNick=normalize(document.querySelector('#nick').value)===normalize(player[0]);
+  const answers=[player[1],...(player[3]||[])].map(normalize);
+  const correctTeam=level==='easy'||answers.includes(normalize(document.querySelector('#real-name').value));
+  if(correctNick&&correctTeam){score++;document.querySelector('#score').textContent=score;document.querySelector('#feedback').className='feedback correct';document.querySelector('#feedback').textContent='Верно! Следующий игрок…';setTimeout(nextPlayer,850);return}
+  document.querySelector('#feedback').className='feedback wrong';document.querySelector('#feedback').textContent='Неверно — серия закончилась.';
+  document.querySelector('#answer').innerHTML=level==='hard'?`Правильный ответ: <b>${player[0]}</b>, команда: <b>${player[1]}</b>.`:`Правильный ответ: <b>${player[0]}</b>.`;
+  document.querySelector('#answer').classList.remove('hidden');quizForm.classList.add('hidden');document.querySelector('#restart').classList.remove('hidden');
+});
+</script><script>
+document.querySelector('#real-name').placeholder='Введи команду игрока';
+const previousForm=document.querySelector('#answer-form');
+const activeForm=previousForm.cloneNode(true);
+previousForm.replaceWith(activeForm);
+activeForm.addEventListener('submit',event=>{
+  event.preventDefault();
+  const correctNick=normalize(document.querySelector('#nick').value)===normalize(player[0]);
+  const answers=[player[1],...(player[3]||[])].map(normalize);
+  const correctTeam=level==='easy'||answers.includes(normalize(document.querySelector('#real-name').value));
+  if(correctNick&&correctTeam){score++;document.querySelector('#score').textContent=score;document.querySelector('#feedback').className='feedback correct';document.querySelector('#feedback').textContent='Верно! Следующий игрок…';setTimeout(nextPlayer,850);return}
+  document.querySelector('#feedback').className='feedback wrong';document.querySelector('#feedback').textContent='Неверно — следующий игрок.';
+  activeForm.classList.add('hidden');score=0;document.querySelector('#score').textContent=score;
+  const players=level==='easy'?easyPlayers:hardPlayers;
+  deck=shuffle(players.filter(item=>item!==player));deck.unshift(player);
+  setTimeout(nextPlayer,850);
+});
+</script><script>
+nextPlayer=function(){
+  const players=level==='easy'?easyPlayers:hardPlayers;
+  if(score>=MAX_STREAK){document.querySelector('#photo').classList.add('hidden');document.querySelector('#fallback').style.display='grid';document.querySelector('#fallback').textContent='🏆';document.querySelector('#answer-form').classList.add('hidden');document.querySelector('#feedback').className='feedback correct';document.querySelector('#feedback').textContent='Победа! 10 правильных ответов подряд.';document.querySelector('#restart').classList.remove('hidden');return}
+  if(!deck.length){document.querySelector('#photo').classList.add('hidden');document.querySelector('#fallback').style.display='grid';document.querySelector('#fallback').textContent='+';document.querySelector('#answer-form').classList.add('hidden');document.querySelector('#feedback').className='feedback';document.querySelector('#feedback').textContent=`Для победы нужно 10 игроков без повторов. Сейчас в этом режиме: ${players.length}.`;document.querySelector('#restart').classList.remove('hidden');return}
+  player=deck.pop();document.querySelector('#photo').src=player[2];document.querySelector('#photo').classList.remove('hidden');document.querySelector('#fallback').style.display='none';document.querySelector('#nick').value='';document.querySelector('#real-name').value='';document.querySelector('#feedback').textContent='';document.querySelector('#answer').classList.add('hidden');document.querySelector('#restart').classList.add('hidden');document.querySelector('#answer-form').classList.remove('hidden');document.querySelector('#nick').focus();
+};
+</script><style>
+#photo{object-fit:contain;object-position:center;background:transparent}
+.photo-wrap{min-height:340px;margin:10px 0 22px;border:0;background:transparent;overflow:visible}
+</style></body></html>

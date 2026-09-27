@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Бархатный кот — крути ради прикола</title>
+  <meta name="description" content="Шуточный игровой автомат с котом-крупье. 300 стартовых монет, анимированный рычаг и только игровая валюта.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23141e1b'/%3E%3Ctext x='32' y='47' text-anchor='middle' font-size='47' fill='%23e7be72'%3E♠%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Бархатный кот, главная"><span class="brand-mark">♠</span><span>БАРХАТНЫЙ КОТ<small>КАЗИНО ПОНАРОШКУ</small></span></a>
+    <div class="wallet"><span class="coin-wallet" aria-label="Игровые монеты"><span class="coin-icon">✦</span> <b id="coins">300</b> <span class="wallet-label">монет</span></span><span class="token-wallet"><span class="token-icon">◈</span> <b id="tokens">0</b> <span class="wallet-label">токенов</span></span><button class="shop-open" id="shopOpen">Магазин <span aria-hidden="true">＋</span></button></div>
+  </header>
+  <main>
+    <div class="intro"><span class="eyebrow">ВЕЧЕР ТОЛЬКО НАЧИНАЕТСЯ</span><h1>Крути ради <em>прикола.</em></h1><p>Большая атмосфера. Маленькая ставка. Всё понарошку.</p></div>
+    <section class="game-scene" aria-label="Игровой автомат">
+      <aside class="host">
+        <div class="speech"><span class="host-label">ВАШ КРУПЬЕ · БАРСИК</span><p id="hostSpeech" aria-live="polite">Мяу! У тебя 300 монет. Купи токены в магазине, затем потяни рычаг.</p><button id="helpButton" class="text-button">Как тут играть? <span aria-hidden="true">↗</span></button></div>
+        <img class="host-image" src="assets/host.png" alt="Кот-крупье Барсик в нарядной жилетке" width="480" height="640">
+      </aside>
+      <div class="machine-area">
+        <div class="machine" id="machine">
+          <div class="machine-top"><span class="ornament">✦</span><div class="machine-title"><small>THE VELVET CLUB</small><strong>МЯУ-ДЖЕКПОТ</strong></div><span class="ornament">✦</span></div>
+          <div class="reel-frame"><div class="payline" aria-hidden="true"></div><div class="reels" id="reels" role="img" aria-label="Барабаны: рубин, семёрка, корона"><div class="reel"><div class="reel-strip"><span><img class="symbol-art" src="assets/sapphire.png" alt="Сапфир"></span><span><img class="symbol-art" src="assets/ruby.png" alt="Рубин"></span><span><img class="symbol-art" src="assets/crown.png" alt="Корона"></span></div></div><div class="reel"><div class="reel-strip"><span><img class="symbol-art" src="assets/ruby.png" alt="Рубин"></span><span class="seven">7</span><span><img class="symbol-art" src="assets/sapphire.png" alt="Сапфир"></span></div></div><div class="reel"><div class="reel-strip"><span class="seven">7</span><span><img class="symbol-art" src="assets/crown.png" alt="Корона"></span><span><img class="symbol-art" src="assets/ruby.png" alt="Рубин"></span></div></div></div></div>
+          <div class="machine-readout" id="result" role="status">ТРИ БАРАБАНА. ОДИН РЫЧАГ. ПОЕХАЛИ?</div>
+          <div class="machine-bottom"><div><small>СТОИМОСТЬ ВРАЩЕНИЯ</small><strong><span>◈</span> 1 токен</strong></div><div class="machine-separator"></div><div><small>ТРИ ОДИНАКОВЫХ</small><strong><span>✦</span> 100–1000</strong></div><button class="sound-toggle" id="soundToggle" aria-pressed="false" aria-label="Включить звук" title="Включить звук">♪<span id="soundState">выкл.</span></button></div>
+          <div class="lever-mount" aria-hidden="true"></div>
+          <button class="lever" id="lever" aria-label="Потянуть рычаг: вращение за 1 токен"><span class="lever-arm"><span class="lever-ball"></span></span><span class="lever-base"></span></button>
+        </div>
+        <div class="pull-hint"><span aria-hidden="true">↳</span> Потяни рычаг вниз или нажми на него</div>
+        <div class="under-machine"><span>✦ &nbsp; 300 монет на старте</span><span id="welcomeStatus">Приветственный бонус · первые 3 вращения</span></div>
+      </div>
+    </section>
+    <section class="rule-strip" aria-label="Правила"><div><span class="rule-number">01</span><p><strong>Дёрни за рычаг</strong><span>Одно вращение — один токен</span></p></div><div><span class="rule-number">02</span><p><strong>Поймай три одинаковых</strong><span>Монеты в награду и возврат токена</span></p></div><div><span class="rule-number">03</span><p><strong>Загляни в магазин</strong><span>Меняй игровые монеты на токены</span></p></div></section>
+  </main>
+  <footer><span>БАРХАТНЫЙ КОТ <span class="footer-suit">♠</span> ИГРА БЕЗ СЕРЬЁЗНЫХ СТАВОК</span><button id="rulesOpen" class="text-button">Правила игры</button></footer>
+  <dialog id="shopDialog" aria-labelledby="shopTitle"><button class="close" data-close="shopDialog" aria-label="Закрыть магазин">×</button><span class="eyebrow">КАССА БАРСИКА</span><h2 id="shopTitle">Добавим вращений?</h2><p class="dialog-copy">Токены за игровые монеты. Никаких платежей.</p><div class="shop-balance">Твои монеты <strong>✦ <span id="shopCoins">300</span></strong></div><div class="packages"><button data-buy="1"><span class="package-icon">◈</span><strong>1 токен</strong><span>100 монет</span></button><button data-buy="3"><span class="package-icon">◈ ◈ ◈</span><strong>3 токена</strong><span>300 монет</span></button><button data-buy="5"><span class="package-icon">✦</span><strong>5 токенов</strong><span>500 монет</span></button></div><p id="shopMessage" class="shop-message" role="status">Выбери, сколько токенов добавить.</p><button id="freeCoins" class="gift-button">Получить 500 бесплатных монет</button><p class="fine-print">Это демо: обновление страницы начинает новую игру и возвращает стартовый бонус.</p></dialog>
+  <dialog id="rulesDialog" aria-labelledby="rulesTitle"><button class="close" data-close="rulesDialog" aria-label="Закрыть правила">×</button><span class="eyebrow">ВСЁ ПО-ЧЕСТНОМУ</span><h2 id="rulesTitle">Правила клуба</h2><div class="rules-copy"><p>На старте — <b>300 игровых монет и 0 токенов</b>. Сначала обменяй монеты на токены в магазине. Нажми на красный рычаг, потяни его вниз или выдели клавишей Tab и нажми Enter.</p><p>На первые три вращения каждой новой игры действует <b>приветственный бонус к выпадениям</b>. Начиная с четвёртого вращения шанс снижается до обычного. Бонус не гарантирует выигрыш. Обновление страницы начинает новую игру.</p><p>Каждое вращение списывает <b>1 токен</b>. Три одинаковых символа на центральной линии приносят <b>монеты и возвращают 1 токен</b>. Другие сочетания ничего не начисляют.</p><ul class="payout-list"><li><img class="payout-art" src="assets/ruby.png" alt="Рубин"> × 3 — <b>100 монет</b></li><li><img class="payout-art" src="assets/sapphire.png" alt="Сапфир"> × 3 — <b>200 монет</b></li><li><img class="payout-art" src="assets/crown.png" alt="Корона"> × 3 — <b>400 монет</b></li><li>7 · 7 · 7 — <b>600 монет</b></li><li><img class="payout-art" src="assets/diamond.png" alt="Алмаз"> × 3 — <b>1000 монет</b> · очень редкий</li></ul><p>В магазине 1 токен стоит 100 монет. Бесплатные монеты можно получать сколько угодно. Валюту нельзя купить за деньги или вывести. Баланс сбрасывается при обновлении страницы.</p></div></dialog>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

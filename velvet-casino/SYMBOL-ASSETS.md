@@ -1,0 +1,10 @@
+## Новые символы — встроенный ImageGen
+
+### dist/assets/ruby.png
+Use case: stylized-concept. Asset type: single premium 3D slot machine symbol. Subject: a large brilliant crimson red ruby, angular cushion-cut faceted gemstone in a thin polished gold setting. Style: polished luxurious arcade game icon, chunky readable silhouette, rich saturated color, beautiful crisp specular highlights, slightly three-quarter front view, consistent warm upper-left studio key light. Composition: one centered object filling 82% of a square canvas, generous even transparent padding. True transparent background, no ground plane, no text, no letters, no watermark, no UI, no surrounding sparkles. Must read clearly at 72px.
+
+### dist/assets/sapphire.png
+Use case: stylized-concept. Asset type: single premium 3D slot machine symbol. Subject: a brilliant electric blue sapphire, diamond-shaped faceted gemstone in a thin polished gold setting. Style: polished luxurious arcade game icon, chunky readable silhouette, rich saturated color, beautiful crisp specular highlights, slightly three-quarter front view, consistent warm upper-left studio key light. Composition: one centered object filling 82% of a square canvas, generous even transparent padding. True transparent background, no ground plane, no text, no letters, no watermark, no UI, no surrounding sparkles. Must read clearly at 72px.
+
+### dist/assets/crown.png
+Use case: stylized-concept. Asset type: single premium 3D slot machine symbol. Subject: a magnificent polished gold royal crown with three prominent tips and crimson gemstone insets. Style: polished luxurious arcade game icon, chunky readable silhouette, rich saturated color, beautiful crisp specular highlights, slightly three-quarter front view, consistent warm upper-left studio key light. Composition: one centered object filling 82% of a square canvas, generous even transparent padding. True transparent background, no ground plane, no text, no letters, no watermark, no UI, no surrounding sparkles. Must read clearly at 72px.
